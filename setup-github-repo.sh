@@ -200,7 +200,7 @@ fi
 
 # Check if the service is running
 if systemctl is-active --quiet "$SERVICE_NAME"; then
-    log "Service $SERVICE_NAME is running."
+    log "Service $SERVICE_NAME is already running."
 else
     log "Starting service $SERVICE_NAME..."
     sudo systemctl start "$SERVICE_NAME"
