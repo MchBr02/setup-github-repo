@@ -20,29 +20,29 @@ ENV_FILES=("${ENV_FILES[@]}")
 ENV_FILES=($(ls -1 .env* 2>/dev/null))
 
 # Inform the user about required variables
-echo "The following variables are required:"
-echo "- TOKEN (GitHub token)"
-echo "- GITHUB_USER (GitHub username)"
-echo "- REPO_NAME (Repository name)"
-echo
+log "The following variables are required:"
+log "- TOKEN (GitHub token)"
+log "- GITHUB_USER (GitHub username)"
+log "- REPO_NAME (Repository name)"
+log
 
 # List available .env* files
-echo "Choose an option:"
-echo "0 - Enter values manually"
+log "Choose an option:"
+log "0 - Enter values manually"
 for i in "${!ENV_FILES[@]}"; do
-    echo "$((i+1)) - ${ENV_FILES[$i]}"
+    log "$((i+1)) - ${ENV_FILES[$i]}"
 done
 
-echo
+log
 read -p "Enter the number of your choice: " CHOICE
 
 env_file=""
 if [[ "$CHOICE" -ne 0 ]]; then
     env_file="${ENV_FILES[$((CHOICE-1))]}"
     if [[ ! -f "$env_file" ]]; then
-        echo "Invalid selection. Proceeding with manual input."
+        log "Invalid selection. Proceeding with manual input."
     else
-        echo "Using environment file: $env_file"
+        log "Using environment file: $env_file"
         set -o allexport
         source "$env_file"
         set +o allexport
@@ -63,10 +63,10 @@ if [[ -z "$REPO_NAME" ]]; then
 fi
 
 # Confirm collected values
-echo "\nUsing the following values:"
-echo "TOKEN: [HIDDEN]"
-echo "GITHUB_USER: $GITHUB_USER"
-echo "REPO_NAME: $REPO_NAME"
+log "Using the following values:"
+log "TOKEN: [HIDDEN]"
+log "GITHUB_USER: $GITHUB_USER"
+log "REPO_NAME: $REPO_NAME"
 #### ENVIRONMENTS ####
 
 
@@ -78,11 +78,11 @@ SERVICE_NAME="${REPO_NAME}.service"
 SERVICE_FILE="/etc/systemd/system/$SERVICE_NAME"
 
 # Display variables
-echo "REPO_URL = $REPO_URL"
-echo "REPO_NAME = $REPO_NAME"
-echo "REPO_DIR = $REPO_DIR"
-echo "SERVICE_NAME = $SERVICE_NAME"
-echo "SERVICE_FILE = $SERVICE_FILE"
+log "REPO_URL = $REPO_URL"
+log "REPO_NAME = $REPO_NAME"
+log "REPO_DIR = $REPO_DIR"
+log "SERVICE_NAME = $SERVICE_NAME"
+log "SERVICE_FILE = $SERVICE_FILE"
 
 
 
